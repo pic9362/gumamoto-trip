@@ -319,7 +319,7 @@ function renderDay(di) {
 let mapDay = 0, mapOpt = false, mapLocked = true, mapSel = null, mapSrc = '';
 const mapSeq = di => placeStops(T.days[di]).filter(s => !P(s.place).nomap);
 const mapDayList = di => di === 0 ? T.days.map((_, i) => i) : [di - 1];
-const gq = id => { const p = P(id); return enc(p.addr || p.q || p.ja); };
+const gq = id => { const p = P(id); return enc(p.q || p.addr || p.ja); };
 function embedUrl() {
   const base = 'https://www.google.com/maps?output=embed&hl=ko';
   if (mapSel) return base + '&z=15&q=' + gq(mapSel);
@@ -335,7 +335,7 @@ function renderMapShell() {
     + '<div class="mapwrap"><div id="mapbox" aria-label="Google 지도"></div><div id="maplock" class="maplock"><span>지도 조작이 잠겨 있습니다. 스크롤은 그대로 됩니다.</span></div></div>'
     + '<div id="mapinfo" class="card" style="margin-top:10px;display:none"></div>'
     + '<div class="legend"><span>숫자: 아래 목록의 방문 순서</span><span>도보: 도보로 둘러보는 곳</span><span>선택: 선택·추가 명소와 식당 후보</span></div>'
-    + '<p class="muted small">지도는 Google 지도를 그대로 보여 주며, 날짜를 고르면 그날 방문 순서대로 이은 <b>Google의 실제 도로 경로</b>가 표시됩니다(선택한 경로: <span id="mroute"></span>). 숫자 핀은 Google 임베드에서 지원하지 않아 목록 번호로 대신합니다. 바로 옆 도보 이동 장소(겐카이·로마이·조사이엔)는 경로선에서 빼고 목록에서 위치를 확인하세요. 장소를 누르면 그 위치로 지도가 바뀝니다. 지도는 인터넷이 필요합니다.</p>'
+    + '<p class="muted small">지도는 Google 지도를 그대로 보여 주며, 날짜를 고르면 그날 방문 순서대로 이은 <b>Google의 실제 도로 경로</b>가 표시됩니다(선택한 경로: <span id="mroute"></span>). 숫자 핀은 Google 임베드에서 지원하지 않아 목록 번호로 대신합니다. 바로 옆 도보 이동 장소(요코바치·로마이·조사이엔)는 경로선에서 빼고 목록에서 위치를 확인하세요. 장소를 누르면 그 위치로 지도가 바뀝니다. 지도는 인터넷이 필요합니다.</p>'
     + '<div id="maplist"></div>';
 }
 function mapInfo(di, k) {
@@ -416,7 +416,7 @@ function renderStay() {
   const kind = ['', '', ''];
   const meal = '<div class="card"><h3 class="ct">날짜별 식사 계획</h3><div class="tscroll"><table class="t mealgrid"><tr><th>날짜</th><th>아침</th><th>점심</th><th>저녁</th></tr>'
     + '<tr><td class="k">1일차 ' + dl(0) + '</td><td><span class="tag s-chk">개인</span>출발 전 개별 해결</td><td><span class="tag t-plan">외부</span>김해국제공항에서 해결(탑승 전)</td><td><span class="tag t-incl">숙소 포함</span>가이세키 석식</td></tr>'
-    + '<tr><td class="k">2일차 ' + dl(1) + '</td><td><span class="tag t-incl">숙소 포함</span>일본 가정식 조식</td><td><span class="tag t-plan">외부 후보</span>이마킨 식당 / 요카요카테이</td><td><span class="tag t-plan">외부 후보</span>카츠레츠테이 / 무쓰고로<br><span class="tag t-plan">2차</span>겐카이 20:00~22:00(예약 예정)</td></tr>'
+    + '<tr><td class="k">2일차 ' + dl(1) + '</td><td><span class="tag t-incl">숙소 포함</span>일본 가정식 조식</td><td><span class="tag t-plan">외부 후보</span>이마킨 식당 / 요카요카테이</td><td><span class="tag t-plan">외부 후보</span>카츠레츠테이 / 무쓰고로<br><span class="tag t-plan">2차</span>요코바치 20:00~22:00(예약·영업 확인 필요)</td></tr>'
     + '<tr><td class="k">3일차 ' + dl(2) + '</td><td><span class="tag t-plan">외부 후보</span>킷사토 사케 로마이(호텔 조식 불포함)</td><td><span class="tag s-chk">미정</span>공항 식당가</td><td>귀국 후</td></tr></table></div><p class="muted small">숙소 포함 식사는 외부 식당 일정과 겹치지 않게 뺐습니다.</p></div>';
   const rent = '<div class="card"><span class="tag t-incl">예약 확정</span><h3 class="ct" style="display:inline">렌터카 프리우스</h3><p class="small">12/7 14:00 인수 ~ 12/9 14:00 반납 · 토요타렌터리스 구마모토공항점 · ETC·내비 포함 · 22,550엔. 영업소 주소: ' + esc(P('rental').addr) + '(사용자 제공, 공항 건물과 별도). 전화는 예약서로 확인하세요. 반납 전 주유소: ' + esc(P('gas').addr) + '. 계획 반납은 12/9 12:00~12:20입니다.</p><div class="btns">' + ext(mapUrl(P('rental')), '영업소 검색') + ext(P('rental').official.url, '토요타렌터리스 공식') + copyBtn(P('rental').ja) + '</div></div>';
   return '<h2 class="vt">숙소·식사</h2><div class="grid2">' + cards + '</div><div style="margin-top:14px">' + meal + '</div><div style="margin-top:14px">' + rent + '</div>';

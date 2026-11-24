@@ -40,7 +40,7 @@ window.TRIP = {
     gas:      { ko: '렌터카 영업소 인근 주유소', ja: '1000-5 Futa, Nishihara, Aso District, Kumamoto 861-2403', pr: '(영문 주소로 검색)', area: '니시하라무라 후타', kind: 'rental', lat: 32.85, lng: 130.95, q: '1000-5 Futa, Nishihara, Aso District, Kumamoto 861-2403', addr: '1000-5 Futa, Nishihara, Aso District, Kumamoto 861-2403', approx: true, note: '주소는 사용자 제공 값입니다. 영업시간·셀프 여부는 확인 필요. 영업소와의 거리는 조회하지 못했습니다.' },
     mega:     { ko: '메가센터 트라이얼 오즈점', ja: 'メガセンタートライアル大津店', pr: '메가센타- 토라이아루 오-즈텐', area: '오즈마치', kind: 'shop', lat: 32.88, lng: 130.88, pid: 'ChIJu_Z2GEzlQDURSlwD014qbwk', q: 'メガセンタートライアル大津店', approx: true },
     kabuto:   { ko: '가부토이와 전망대', ja: '兜岩展望所', pr: '카부토이와 텐보-쇼', area: '아소 서쪽 외륜산', kind: 'view', lat: 32.93, lng: 131.0, pid: 'ChIJL2lPlGshQTUR5tBxbfdx4ms', q: '兜岩展望所 阿蘇', approx: true },
-    skyline:  { ko: 'Aso Skyline Observatory', ja: 'Aso Skyline Observatory', pr: '아소 스카이라인 옵저바토리', area: '밀크로드 인근', kind: 'view', lat: 32.935, lng: 131.03, pid: 'ChIJKVWR1IgjQTURJBi1PzUzCLI', q: 'Aso Skyline Observatory 阿蘇', approx: true, noteJa: '일본어 정식 표기는 확인 필요' },
+    skyline:  { ko: 'Aso Skyline Observatory', ja: 'Aso Skyline Observatory', pr: '아소 스카이라인 옵저바토리', area: '아소시 니시유노우라', kind: 'view', lat: 32.935, lng: 131.03, pid: 'ChIJKVWR1IgjQTURJBi1PzUzCLI', q: 'Aso Skyline Observatory, Nishiyunoura, Aso, Kumamoto 869-2304', addr: 'Nishiyunoura, Aso, Kumamoto 869-2304', approx: true, noteJa: '일본어 정식 표기는 확인 필요', note: '주소는 사용자 제공 값입니다(번지 없는 지역 단위 주소).' },
     yamasaki: { ko: '하나레야도 야마사키(독채 료칸)', ja: '離れ宿 山咲', pr: '하나레야도 야마사키', area: '미나미오구니마치(구로카와 온천권)', kind: 'stay', lat: 33.07, lng: 131.11, pid: 'ChIJs-HKy48wQTURGZEcbCn_PkQ', q: '離れ宿 山咲 南小国町', approx: true },
     shiroyama:{ ko: '시로야마 전망소', ja: '城山展望所', pr: '시로야마 텐보-쇼', area: '아소 북동 외륜산', kind: 'view', lat: 33.0, lng: 131.1, pid: 'ChIJ26iqTW0vQTURua9HZ20-H5c', q: '城山展望所 阿蘇', approx: true },
     daikanbo: { ko: '다이칸보(대관봉) 전망대', ja: '大観峰', pr: '다이칸보-', area: '아소시 북쪽 외륜산', kind: 'view', lat: 32.99, lng: 131.08, pid: 'ChIJX765iTgkQTURvrGlT2qYPQ8', q: '大観峰 阿蘇',  approx: true,
@@ -63,7 +63,7 @@ window.TRIP = {
     mutsu:    { ko: '무쓰고로', ja: 'むつ五郎', pr: '무츠고로-', area: '구마모토 시내', kind: 'food', lat: 32.8025, lng: 130.711, pid: 'ChIJuaYGrHL0QDURFxYanQYtM2k', q: 'むつ五郎 熊本', approx: true, noteJa: '일본어 정식 표기는 확인 필요' },
     aoyagi:   { ko: '아오야기', ja: '青柳', pr: '아오야기', area: '구마모토 시내', kind: 'food', lat: 32.8045, lng: 130.7115, pid: 'ChIJf3jB_Qz0QDUREQ1RfB6j-4Q', q: '青柳 熊本', approx: true, noteJa: '일본어 정식 표기는 확인 필요' },
     kokutei:  { ko: '라멘 고쿠테이 시모토리점', ja: 'ラーメン黒亭 下通店', pr: '라-멘 코쿠테- 시모토-리텐', area: '시모토리', kind: 'food', lat: 32.8015, lng: 130.7095, pid: 'ChIJVVXJfgn0QDUR9QDNToO5m74', q: 'ラーメン黒亭 熊本', approx: true, noteJa: '지점 표기는 확인 필요' },
-    genkai:   { ko: '겐카이(활어회·향토요리 이자카야)', ja: 'いけす個室と郷土料理 源海', pr: '이케스 코시츠토 쿄-도료-리 겐카이', area: '신시가이', kind: 'food', near: 'candeo', lat: 32.803, lng: 130.7105, pid: 'ChIJJfQ7N3L0QDUR65k0uP82k-E', q: 'いけす個室と郷土料理 源海', approx: true },
+    yokobachi:{ ko: '요코바치(이자카야)', ja: 'Yokobachi', pr: '요코바치', area: '가미토리초(구마모토 시내)', kind: 'food', near: 'candeo', lat: 32.8045, lng: 130.7125, q: 'Yokobachi, 11-40 Kamitoricho, Chuo Ward, Kumamoto, 860-0845', addr: '11-40 Kamitoricho, Chuo Ward, Kumamoto, 860-0845', approx: true, noteJa: '일본어 정식 표기는 확인 필요', note: '주소는 사용자 제공 값입니다.' },
     romai:    { ko: '킷사토 사케 로마이', ja: '喫茶と酒 ロマイ', pr: '킷사토 사케 로마이', area: '신시가이 인근', kind: 'food', near: 'candeo', lat: 32.8025, lng: 130.7125, pid: 'ChIJM1ud4Iv1QDUR8mg8Jd2g-2Y', q: '喫茶と酒 ロマイ 熊本', approx: true }
   },
 
@@ -77,7 +77,7 @@ window.TRIP = {
     mutsu:    { place: 'mutsu', day: 2, meal: '저녁', rank: '대안', menu: '바사시(말고기 회)·향토 요리', why: '구마모토다운 음식을 먹고 싶을 때의 대안입니다. 말고기 회는 호불호가 있어 동행자 의견을 먼저 확인하세요.', price: null, hours: null, closed: null, access: '호텔에서 도보권(정확한 시간 확인 필요)', source: 'src-md' },
     aoyagi:   { place: 'aoyagi', day: 2, meal: '저녁', rank: '예비', menu: '향토 일식 코스(가이세키)', why: '격식 있는 코스를 원할 때의 예비 후보입니다. 코스는 보통 예약이 필요하므로 사전 확인이 필요합니다.', price: null, hours: null, closed: null, access: '확인 필요', source: 'src-md' },
     kokutei:  { place: 'kokutei', day: 2, meal: '저녁', rank: '예비', menu: '마늘 기름이 진한 돈코츠 라멘', why: '가볍게 먹고 싶거나 대기가 길 때의 예비 후보입니다.', price: null, hours: null, closed: null, access: '시내 도보권(확인 필요)', source: 'src-md' },
-    genkai:   { place: 'genkai', day: 2, meal: '2차', rank: '예약 예정', menu: '활어회·향토 요리(다다미 개인실)', why: '저녁 후 20:00~22:00 2차입니다. 예약하기로 했으며 예약이 끝나기 전에는 확정으로 보지 마세요.', price: null, hours: null, closed: null, access: '호텔에서 도보(일정표 기재: 약 1분)', source: 'src-md' },
+    yokobachi:{ place: 'yokobachi', day: 2, meal: '2차', rank: '계획', menu: '확인 필요(메뉴·분위기 미조사)', why: '저녁 후 20:00~22:00에 가는 2차 이자카야입니다. 사용자가 정한 곳이며 예약 여부와 영업 정보는 확인이 필요합니다.', price: null, hours: null, closed: '12/8(화) 휴무 여부 확인 필요', access: '호텔(신시가이)에서 가미토리초 방면 도보권(소요 시간 확인 필요)', source: 'src-md' },
     romai:    { place: 'romai', day: 3, meal: '아침', rank: '1순위', menu: '오무스비·된장국 정식', why: '호텔은 조식이 불포함이라 가까운 킷사텐에서 일본 가정식 아침을 먹습니다. 일정표에는 06:00부터 영업으로 적혀 있습니다.', price: null, hours: '일정표 기재: 06:00~(종료 시각·휴무 확인 필요)', closed: null, access: '호텔에서 도보(일정표 기재: 약 2분)', source: 'src-md' }
   },
 
@@ -108,28 +108,27 @@ window.TRIP = {
       title: '구마모토 공항 → 아소 외륜산 드라이브 → 료칸 입실',
       theme: '도착일은 짧게 움직이고 독채 온천에서 푹 쉽니다.',
       route: '공항 → 렌터카 → 대형 마트 → 서쪽 외륜산 전망 → 료칸. 아소 서쪽에서 북쪽으로 올라가는 한 방향 동선입니다.',
-      mode: '자동차 이동 중심, 전망대에서는 잠깐 걷습니다. 해가 지기 전(일몰은 날씨 카드 참고) 료칸에 닿는 것을 목표로 합니다.',
+      mode: '자동차 이동 중심, 전망대에서는 잠깐 걷습니다. 일몰(약 17:10, 날씨 카드 참고) 직전인 16:55 료칸 도착이 목표입니다.',
       stay: 'yamasaki', wx: ['kabuto'],
-      buffer: '렌터카 인수 후 마트·전망대 사이에 15~45분 이동 여유를 두었고, 일몰 전 입실을 목표로 합니다.',
-      genWarn: '일반도로 위주로 가면 마트·전망대 구간이 길어질 수 있습니다. 시간이 밀리면 마트 정차를 줄이세요.',
+      buffer: '입국·인수를 짧게 잡고 전망대 두 곳을 넣었습니다. 정차 사이 이동 여유는 10~25분이며, 일몰(약 17:10) 직전인 16:55 입실이 목표입니다.',
+      genWarn: '일반도로 위주로 가면 마트·전망대 구간이 길어질 수 있습니다. 시간이 밀리면 마트를 건너뛰고 Aso Skyline Observatory를 생략하세요.',
       notes: ['점심은 김해국제공항에서 탑승 전에 해결합니다. 11:55 출발이라 이른 점심이 되므로, 료칸 석식까지 간격이 길면 마트에서 간식을 사 두세요.'],
       stops: [
         { id: 'd1-lunch', meal: 'lunch1', t: ['10:30', '11:15'], level: 'plan', title: '김해국제공항에서 점심', why: '1일차 점심은 출발 전 김해국제공항에서 해결합니다. 식당은 미정입니다.', note: '수속·보안검색을 먼저 마친 뒤 먹고, 탑승 시각 전에 게이트로 이동하세요(수속 마감 시각은 항공사 확인 필요).' },
-        { id: 'd1-fl', place: 'airport', t: ['11:55', '13:25'], level: 'must', kind: 'flight', title: 'ZE967 김해 11:55 출발 → 13:25 도착', why: '예약 확정 항공편입니다. 기내 수하물만 허용되어 도착 후 수하물 대기는 없습니다.', todo: '입국 심사·세관(Visit Japan Web 등록 여부 확인), 렌터카 셔틀 안내 확인', stay: '약 35분(입국·셔틀 대기, 추정)', cost: '예약 완료(887,261원)', access: '공항 → 렌터카 영업소는 송영 셔틀 이용(예약서로 승차 위치 확인 필요)', status: 'ok' },
-        { id: 'd1-rent', place: 'rental', t: ['14:00', '14:35'], level: 'must', kind: 'car', title: '렌터카 인수', why: '프리우스 12/7 14:00 인수(예약 확정). ETC·내비 포함입니다.', todo: '차량 외관 사진 남기기, 내비 언어·목적지 설정, ETC 카드 장착 확인, 보험·반납 연료 조건 확인', stay: '35분', cost: '예약 완료(22,550엔)', access: '영업소 주소: 1751 Oyatsu, Mashiki, Kamimashiki District, Kumamoto 861-2204', status: 'ok' },
-        { id: 'd1-mega', place: 'mega', t: ['14:50', '15:15'], level: 'plan', kind: 'shop', title: '마트에서 음료·간식 구입', why: '24시간 대형 마트입니다. 료칸 방에서 마실 음료·사케·간식을 사 둡니다.', todo: '생수, 간식, 사케(기내 반입 제한이 있어 귀국 짐은 따로 계산)', stay: '25분', cost: '사용자 지출(미정)', access: '자차 주차(대형 매장, 상세 확인 필요)', status: 'est' },
-        { id: 'd1-kab', place: 'kabuto', t: ['15:40', '16:05'], level: 'must', kind: 'view', title: '밀크로드 초입 서쪽 외륜산 조망', why: '아소 칼데라 서쪽 능선과 평원을 처음 보는 곳입니다.', todo: '사진 촬영, 짧은 산책', stay: '25분', cost: '무료로 추정(확인 필요)', access: '도로변 전망소로 알려져 있으나 주차 가능 여부는 확인 필요', status: 'est', backup: '비·안개 시 조망이 어려우면 15분만 머물고 바로 료칸으로 이동합니다.' },
-        { id: 'd1-yama', place: 'yamasaki', t: ['16:50', null], level: 'must', kind: 'stay', title: '료칸 체크인·독채 노천온천', why: '예약 확정 숙소입니다. 방에 딸린 노천탕과 가이세키 석식·가정식 조식이 포함됩니다.', todo: '체크인(15:00 이후), 가이세키 시작 시각 확인, 노천탕 입욕', stay: '1박', cost: '예약 완료(117,800엔)', access: '주차 방식은 확인 필요', status: 'ok' },
+        { id: 'd1-fl', place: 'airport', t: ['11:55', '13:25'], level: 'must', kind: 'flight', title: 'ZE967 김해 11:55 출발 → 13:25 도착', why: '예약 확정 항공편입니다. 기내 수하물만 허용되어 도착 후 수하물 대기가 없으니 입국 심사 후 바로 셔틀로 이동합니다.', todo: '입국 심사·세관(Visit Japan Web 등록 여부 확인), 렌터카 셔틀 탑승. 13:50 전후 영업소 도착이 목표', stay: '입국·셔틀 약 25분 + 접수 대기 10분(추정)', cost: '예약 완료(887,261원)', access: '공항 → 렌터카 영업소는 송영 셔틀 이용(예약서로 승차 위치 확인 필요)', status: 'ok' },
+        { id: 'd1-rent', place: 'rental', t: ['14:00', '14:20'], level: 'must', kind: 'car', title: '렌터카 인수(20분)', why: '프리우스 12/7 14:00 인수(예약 확정). ETC·내비 포함입니다. 인수 시간을 35분에서 20분으로 줄였습니다.', todo: '차량 외관 사진 남기기, 내비 언어·목적지 설정, ETC 카드 확인, 반납 연료 조건 확인. 서류는 미리 꺼내 두세요', stay: '20분', cost: '예약 완료(22,550엔)', access: '영업소 주소: 1751 Oyatsu, Mashiki, Kamimashiki District, Kumamoto 861-2204', status: 'ok', backup: '13:50 전후에 도착하므로 접수가 빨리 가능한지 영업소에 사전 문의하세요. 가능하면 이후 일정이 10분 앞당겨집니다.' },
+        { id: 'd1-mega', place: 'mega', t: ['14:35', '14:55'], level: 'plan', kind: 'shop', title: '마트에서 음료·간식 구입', why: '24시간 대형 마트입니다. 료칸 방에서 마실 음료·사케·간식을 사 둡니다.', todo: '생수, 간식, 사케(기내 반입 제한이 있어 귀국 짐은 따로 계산). 필요한 것만 빠르게 구입', stay: '20분', cost: '사용자 지출(미정)', access: '자차 주차(대형 매장, 상세 확인 필요)', status: 'est' },
+        { id: 'd1-kab', place: 'kabuto', t: ['15:20', '15:40'], level: 'must', kind: 'view', title: '밀크로드 초입 서쪽 외륜산 조망', why: '아소 칼데라 서쪽 능선과 평원을 처음 보는 곳입니다.', todo: '사진 촬영, 짧은 산책', stay: '20분', cost: '무료로 추정(확인 필요)', access: '도로변 전망소로 알려져 있으나 주차 가능 여부는 확인 필요', status: 'est', backup: '비·안개 시 조망이 어려우면 10분만 머물고 바로 료칸으로 이동합니다.' },
+        { id: 'd1-sky', place: 'skyline', t: ['15:50', '16:10'], level: 'plan', kind: 'view', title: '칼데라 파노라마 조망', why: '가부토이와에서 가까운 도로변 전망대에서 칼데라 능선을 한 번 더 봅니다. 일몰 전에만 갈 수 있는 시간대입니다.', todo: '파노라마 사진, 짧은 정차', stay: '20분', cost: '무료로 추정(확인 필요)', access: '일정표 기재: 가부토이와에서 차로 약 5분(주차 포함 이동 10분 배정). 주차 가능 여부는 확인 필요', status: 'est', backup: '일몰이 17:10경이라 시간이 밀리면 이곳을 먼저 생략하세요. 생략하면 료칸 입실이 약 30분 빨라집니다.' },
+        { id: 'd1-yama', place: 'yamasaki', t: ['16:55', null], level: 'must', kind: 'stay', title: '료칸 체크인·독채 노천온천', why: '예약 확정 숙소입니다. 방에 딸린 노천탕과 가이세키 석식·가정식 조식이 포함됩니다.', todo: '체크인(15:00 이후), 가이세키 시작 시각 확인, 노천탕 입욕', stay: '1박', cost: '예약 완료(117,800엔)', access: '주차 방식은 확인 필요', status: 'ok' },
         { id: 'd1-dinner', meal: 'incl1', t: [null, null], level: 'must', title: '가이세키 석식(숙소 포함)', why: '숙소 요금에 포함된 식사입니다. 외부 식당 일정을 넣지 않았습니다.', note: '시작 시각은 숙소 확인 필요' }
       ],
       alts: [
         { c: '비·안개로 조망이 안 보일 때', t: '가부토이와는 짧게 보고 료칸에 일찍 들어가세요. 체크인은 15:00부터이므로 입실이 빨라져도 문제없습니다.' },
-        { c: '입국·렌터카 수속이 늦어질 때', t: '마트를 생략하면 약 25분(+이동 시간)을 줄일 수 있습니다. 간식은 료칸 근처 상점으로 대체합니다.' },
-        { c: '피곤할 때', t: '전망대 정차를 가부토이와 한 곳으로 줄이고 바로 숙소로 가세요.' }
+        { c: '입국·렌터카 수속이 늦어질 때', t: '마트를 생략하면 약 20분(+이동 시간)을, Aso Skyline Observatory를 생략하면 약 30분을 줄일 수 있습니다. 간식은 료칸 근처 상점으로 대체합니다.' },
+        { c: '피곤할 때', t: 'Aso Skyline Observatory를 먼저 빼고, 그래도 힘들면 마트도 생략해 바로 숙소로 가세요.' }
       ],
-      extras: [
-        { id: 'x-sky', place: 'skyline', window: '16:15~16:35(가부토이와 이후)', extraMove: '일정표 기재: 가부토이와에서 차로 약 5분. 왕복 추가 이동은 약 10분 안팎으로 추정(확인 필요)', stayMin: '15~20분', why: '칼데라 능선을 한 번 더 보는 도로변 전망대입니다. 일몰 전 시간대에만 권장합니다.', note: '추가하면 료칸 도착이 약 30분 늦어져 16:50 → 17:20 전후가 됩니다(일몰 시각과 겹침).' }
-      ]
+      extras: []
     },
     {
       title: '아소 칼데라 전망·초원 → 신사 → 구마모토 시내',
@@ -150,7 +149,7 @@ window.TRIP = {
         { id: 'd2-kuma', place: 'kumano', t: ['15:35', '16:15'], level: 'plan', kind: 'shrine', title: '삼나무 숲길과 석등 신사 산책', why: '삼나무 숲길과 석등이 이어지는 분위기 있는 신사입니다.', todo: '참배, 숲길 산책(계단·경사 있을 수 있음)', stay: '40분', cost: '무료로 추정(확인 필요)', access: '주차 위치와 도보 거리는 확인 필요', status: 'est', backup: '피곤하거나 일정이 밀리면 이곳을 생략하고 시내로 바로 이동합니다(시내 도착이 약 1시간 빨라집니다).' },
         { id: 'd2-hotel', place: 'candeo', t: ['17:45', '18:15'], level: 'must', kind: 'stay', title: '호텔 도착·주차·체크인', why: '예약 확정 숙소입니다. 호텔 앞에서 짐을 내리고 제휴 주차장에 차를 넣습니다.', todo: '짐 하차, 제휴 주차장 확인, 체크인(15:00 이후), 객실 2개 배정 확인', stay: '30분', cost: '예약 완료(249,514원). 주차료는 별도(확인 필요)', access: '호텔 자체 주차장 없음', status: 'ok' },
         { id: 'd2-dinner', meal: 'dinner2', t: ['18:15', '19:45'], level: 'plan', title: '시내 저녁(후보 택 1)', why: '호텔 가까이에서 먹어 이동 부담을 줄입니다.', note: '1순위 카츠레츠테이 / 대안 무쓰고로' },
-        { id: 'd2-genkai', place: 'genkai', t: ['20:00', '22:00'], level: 'plan', kind: 'food', title: '이자카야 2차(예약 예정)', why: '저녁 후 호텔 가까이에서 다다미 개인실에서 활어회·향토 요리를 먹습니다. 예약하기로 했으나 아직 확정이 아니므로 예약 후 확인하세요.', todo: '예약(인원 4명·시각 20:00), 예약 확인 후 이 카드 상태 갱신, 다음 날 08:00 조식을 감안해 22:00 이전에 마무리', stay: '120분', cost: '확인 필요(1인 예산 미조사)', access: '호텔에서 도보(일정표 기재: 약 1분)', status: 'chk', backup: '피곤하면 취소하거나 일찍 마쳐도 이후 일정에 영향이 없습니다.' },
+        { id: 'd2-yoko', place: 'yokobachi', t: ['20:00', '22:00'], level: 'plan', kind: 'food', title: '이자카야 2차(요코바치)', why: '저녁 후 구마모토 시내에서 가볍게 한 잔 하는 2차입니다. 사용자가 정한 곳입니다.', todo: '예약 여부·영업시간 확인(12/8 화요일 휴무 여부 포함), 다음 날 08:00 조식을 감안해 22:00 이전에 마무리', stay: '120분', cost: '확인 필요(1인 예산 미조사)', access: '호텔(신시가이)에서 가미토리초 방면 도보권(소요 시간 확인 필요)', status: 'chk', backup: '피곤하면 취소하거나 일찍 마쳐도 이후 일정에 영향이 없습니다.' },
       ],
       alts: [
         { c: '비·안개로 경치가 안 보일 때', t: '대관봉·쿠사센리는 각각 15~20분으로 줄이고, 점심을 아소 밀크 팩토리 같은 실내 후보로 바꾸세요. 신사를 생략하면 시내에 약 1시간 일찍 도착합니다.' },
@@ -230,7 +229,7 @@ window.TRIP = {
     { g: '통신·결제', items: ['로밍 또는 eSIM 준비', '엔화 현금(주차·소규모 식당 대비)', '해외 결제 가능한 카드', '구글 지도 오프라인 지도 다운로드(아소·구마모토)', '이 가이드 홈 화면 추가·첫 접속(오프라인 보기)'] },
     { g: '차량·운전', items: ['차량용 휴대폰 거치대·충전 케이블', '렌터카 반납 시간·조기 반납 가능 여부 확인(예약 14:00, 계획 12:00~12:20)', 'ETC·내비 포함 확인', '운전자 교대 순서 정하기'] },
     { g: '짐·건강', items: ['기내 수하물 10kg 이하(인당 1개)', '보조배터리(기내 휴대)', '상비약(소화제·진통제·평소 복용약)', '방한 복장(아소 고원은 시내보다 춥습니다)', '온천용 작은 수건·갈아입을 옷', '충전기·멀티 어댑터(일본은 A형 100V)'] },
-    { g: '예약 연락', items: ['료칸에 도착 예정 시각(16:50)과 석식 시작 시각 확인', '구마모토 호텔 제휴 주차장 위치 확인', '겐카이 2차 예약(12/8 20:00, 4명) 후 체크, 저녁 후보 휴무 확인', '환갑 축하 케이크·이벤트 요청 여부 결정(원하면 숙소에 사전 문의)'] }
+    { g: '예약 연락', items: ['료칸에 도착 예정 시각(16:55)과 석식 시작 시각 확인', '구마모토 호텔 제휴 주차장 위치 확인', '요코바치 2차(12/8 20:00) 예약·영업 여부 확인, 저녁 후보 휴무 확인', '환갑 축하 케이크·이벤트 요청 여부 결정(원하면 숙소에 사전 문의)'] }
   ],
 
   /* ---------- 현지어 ---------- */
@@ -300,6 +299,6 @@ window.TRIP = {
     '식당 영업시간·휴무·1인 예산은 이번 조사에서 확인하지 못해 "확인 필요"로 표시했습니다.',
     '이동 거리는 조회하지 않았습니다. 화면의 이동 시간은 일정표에 배정한 시간(주차·도보·대기 포함)입니다.',
     '렌터카 예약 반납 시각(14:00)은 귀국 항공 출발(14:30)보다 늦어, 계획은 12:20까지 반납하는 조기 반납으로 잡았습니다. 영업소 확인이 필요합니다.',
-    '숙소 도착 후 가이세키 시작 시각은 미정입니다. 겐카이 2차(12/8 20:00~22:00)는 예약 예정이라 정식 일정에 넣었지만 예약 확정 전까지는 확정으로 표시하지 않습니다.'
+    '숙소 도착 후 가이세키 시작 시각은 미정입니다. 요코바치 2차(12/8 20:00~22:00)는 사용자가 지정해 정식 일정에 넣었지만 예약·영업 확인 전이라 확정으로 표시하지 않습니다. 1일차는 렌터카 인수를 20분으로 줄이고 Aso Skyline Observatory를 넣어 료칸 도착이 16:55입니다.'
   ]
 };
