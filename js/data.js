@@ -63,7 +63,7 @@ window.TRIP = {
     mutsu:    { ko: '무쓰고로', ja: 'むつ五郎', pr: '무츠고로-', area: '구마모토 시내', kind: 'food', lat: 32.8025, lng: 130.711, pid: 'ChIJuaYGrHL0QDURFxYanQYtM2k', q: 'むつ五郎 熊本', approx: true, noteJa: '일본어 정식 표기는 확인 필요' },
     aoyagi:   { ko: '아오야기', ja: '青柳', pr: '아오야기', area: '구마모토 시내', kind: 'food', lat: 32.8045, lng: 130.7115, pid: 'ChIJf3jB_Qz0QDUREQ1RfB6j-4Q', q: '青柳 熊本', approx: true, noteJa: '일본어 정식 표기는 확인 필요' },
     kokutei:  { ko: '라멘 고쿠테이 시모토리점', ja: 'ラーメン黒亭 下通店', pr: '라-멘 코쿠테- 시모토-리텐', area: '시모토리', kind: 'food', lat: 32.8015, lng: 130.7095, pid: 'ChIJVVXJfgn0QDUR9QDNToO5m74', q: 'ラーメン黒亭 熊本', approx: true, noteJa: '지점 표기는 확인 필요' },
-    yokobachi:{ ko: '요코바치(이자카야)', ja: 'Yokobachi', pr: '요코바치', area: '가미토리초(구마모토 시내)', kind: 'food', near: 'candeo', lat: 32.8045, lng: 130.7125, q: 'Yokobachi, 11-40 Kamitoricho, Chuo Ward, Kumamoto, 860-0845', addr: '11-40 Kamitoricho, Chuo Ward, Kumamoto, 860-0845', approx: true, noteJa: '일본어 정식 표기는 확인 필요', note: '주소는 사용자 제공 값입니다.' },
+    yokobachi:{ ko: '요코바치(이자카야)', ja: 'ヨコバチ', pr: '요코바치', area: '가미토리초(구마모토 시내)', kind: 'food', near: 'candeo', lat: 32.8045, lng: 130.7125, q: 'ヨコバチ 熊本市中央区上通町11-40', addr: '11-40 Kamitoricho, Chuo Ward, Kumamoto, 860-0845', approx: true, noteJa: '가타카나 표기는 맛집 사이트 게재값(확인 필요)', note: '주소는 사용자 제공 값입니다. 트램 후지사키구마에역에서 도보 약 4분(구루나비 게재값).' },
     romai:    { ko: '킷사토 사케 로마이', ja: '喫茶と酒 ロマイ', pr: '킷사토 사케 로마이', area: '신시가이 인근', kind: 'food', near: 'candeo', lat: 32.8025, lng: 130.7125, pid: 'ChIJM1ud4Iv1QDUR8mg8Jd2g-2Y', q: '喫茶と酒 ロマイ 熊本', approx: true }
   },
 
@@ -77,7 +77,7 @@ window.TRIP = {
     mutsu:    { place: 'mutsu', day: 2, meal: '저녁', rank: '대안', menu: '바사시(말고기 회)·향토 요리', why: '구마모토다운 음식을 먹고 싶을 때의 대안입니다. 말고기 회는 호불호가 있어 동행자 의견을 먼저 확인하세요.', price: null, hours: null, closed: null, access: '호텔에서 도보권(정확한 시간 확인 필요)', source: 'src-md' },
     aoyagi:   { place: 'aoyagi', day: 2, meal: '저녁', rank: '예비', menu: '향토 일식 코스(가이세키)', why: '격식 있는 코스를 원할 때의 예비 후보입니다. 코스는 보통 예약이 필요하므로 사전 확인이 필요합니다.', price: null, hours: null, closed: null, access: '확인 필요', source: 'src-md' },
     kokutei:  { place: 'kokutei', day: 2, meal: '저녁', rank: '예비', menu: '마늘 기름이 진한 돈코츠 라멘', why: '가볍게 먹고 싶거나 대기가 길 때의 예비 후보입니다.', price: null, hours: null, closed: null, access: '시내 도보권(확인 필요)', source: 'src-md' },
-    yokobachi:{ place: 'yokobachi', day: 2, meal: '2차', rank: '계획', menu: '확인 필요(메뉴·분위기 미조사)', why: '저녁 후 20:00~22:00에 가는 2차 이자카야입니다. 사용자가 정한 곳이며 예약 여부와 영업 정보는 확인이 필요합니다.', price: null, hours: null, closed: '12/8(화) 휴무 여부 확인 필요', access: '호텔(신시가이)에서 가미토리초 방면 도보권(소요 시간 확인 필요)', source: 'src-md' },
+    yokobachi:{ place: 'yokobachi', day: 2, meal: '2차', rank: '계획', menu: '구마모토 향토요리(카라시렌콘·바사시)와 쓰촨 마파두부 같은 중화요리를 함께 내는 쇼와 레트로 이자카야', why: '저녁 후 20:00~22:00에 가는 2차입니다. 사용자가 정한 곳이며 좌석은 좌식·개인실·중정 테이블이 있다고 소개됩니다. 예약 여부는 확인이 필요합니다.', price: '저녁 평균 약 3,000엔(구루나비 게재값, 확인 필요)', hours: '월~토 17:00~24:00(제3자 게재값, 확인 필요)', closed: '12/8(화)는 영업 요일로 게재됨(재확인 필요)', access: '트램 후지사키구마에역에서 도보 약 4분(게재값). 호텔(신시가이)에서 걷는 시간은 확인 필요. 전용 주차장 없음, 근처 코인 주차장', phone: '096-351-4581', phoneSrc: '맛집 사이트 게재값(확인 필요)', source: 'src-yoko' },
     romai:    { place: 'romai', day: 3, meal: '아침', rank: '1순위', menu: '오무스비·된장국 정식', why: '호텔은 조식이 불포함이라 가까운 킷사텐에서 일본 가정식 아침을 먹습니다. 일정표에는 06:00부터 영업으로 적혀 있습니다.', price: null, hours: '일정표 기재: 06:00~(종료 시각·휴무 확인 필요)', closed: null, access: '호텔에서 도보(일정표 기재: 약 2분)', source: 'src-md' }
   },
 
@@ -149,7 +149,7 @@ window.TRIP = {
         { id: 'd2-kuma', place: 'kumano', t: ['15:35', '16:15'], level: 'plan', kind: 'shrine', title: '삼나무 숲길과 석등 신사 산책', why: '삼나무 숲길과 석등이 이어지는 분위기 있는 신사입니다.', todo: '참배, 숲길 산책(계단·경사 있을 수 있음)', stay: '40분', cost: '무료로 추정(확인 필요)', access: '주차 위치와 도보 거리는 확인 필요', status: 'est', backup: '피곤하거나 일정이 밀리면 이곳을 생략하고 시내로 바로 이동합니다(시내 도착이 약 1시간 빨라집니다).' },
         { id: 'd2-hotel', place: 'candeo', t: ['17:45', '18:15'], level: 'must', kind: 'stay', title: '호텔 도착·주차·체크인', why: '예약 확정 숙소입니다. 호텔 앞에서 짐을 내리고 제휴 주차장에 차를 넣습니다.', todo: '짐 하차, 제휴 주차장 확인, 체크인(15:00 이후), 객실 2개 배정 확인', stay: '30분', cost: '예약 완료(249,514원). 주차료는 별도(확인 필요)', access: '호텔 자체 주차장 없음', status: 'ok' },
         { id: 'd2-dinner', meal: 'dinner2', t: ['18:15', '19:45'], level: 'plan', title: '시내 저녁(후보 택 1)', why: '호텔 가까이에서 먹어 이동 부담을 줄입니다.', note: '1순위 카츠레츠테이 / 대안 무쓰고로' },
-        { id: 'd2-yoko', place: 'yokobachi', t: ['20:00', '22:00'], level: 'plan', kind: 'food', title: '이자카야 2차(요코바치)', why: '저녁 후 구마모토 시내에서 가볍게 한 잔 하는 2차입니다. 사용자가 정한 곳입니다.', todo: '예약 여부·영업시간 확인(12/8 화요일 휴무 여부 포함), 다음 날 08:00 조식을 감안해 22:00 이전에 마무리', stay: '120분', cost: '확인 필요(1인 예산 미조사)', access: '호텔(신시가이)에서 가미토리초 방면 도보권(소요 시간 확인 필요)', status: 'chk', backup: '피곤하면 취소하거나 일찍 마쳐도 이후 일정에 영향이 없습니다.' },
+        { id: 'd2-yoko', place: 'yokobachi', t: ['20:00', '22:00'], level: 'plan', kind: 'food', title: '이자카야 2차(요코바치)', why: '저녁 후 구마모토 시내에서 가볍게 한 잔 하는 2차입니다. 사용자가 정한 곳입니다.', todo: '예약 여부 확인(전화 096-351-4581, 게재값), 영업시간 확인(월~토 17:00~24:00 게재), 다음 날 08:00 조식을 감안해 22:00 이전에 마무리', stay: '120분', cost: '저녁 평균 약 3,000엔/인(구루나비 게재값, 확인 필요)', access: '가미토리초. 호텔에서 걷는 시간은 확인 필요(트램 후지사키구마에역에서 도보 약 4분, 게재값)', status: 'chk', backup: '피곤하면 취소하거나 일찍 마쳐도 이후 일정에 영향이 없습니다.' },
       ],
       alts: [
         { c: '비·안개로 경치가 안 보일 때', t: '대관봉·쿠사센리는 각각 15~20분으로 줄이고, 점심을 아소 밀크 팩토리 같은 실내 후보로 바꾸세요. 신사를 생략하면 시내에 약 1시간 일찍 도착합니다.' },
@@ -286,6 +286,7 @@ window.TRIP = {
     { id: 'src-jalan-cand', t: 'Jalan - カンデオホテルズ熊本新市街', u: 'https://www.jalan.net/yad323387/', d: '주소·체크인 15:00·체크아웃 11:00·제휴 주차장 안내', date: '2026-11-24' },
     { id: 'src-consulate', t: '후쿠오카시 - 영사관 목록', u: 'https://www.city.fukuoka.lg.jp/soki/kokusai/shisei/seikatugaidansu/enquirie_to_fukuoka_city_hall_KR.html', d: '주 후쿠오카 대한민국 총영사관 주소·전화', date: '2026-11-24' },
     { id: 'src-gurunavi', t: '구루나비 등 맛집 사이트(이마킨 식당)', u: 'https://gurunavi.com/en/fabf302/mn/menu1/rst', d: '전화번호·대기 정보(외부 사이트 게재값). 영업시간·휴무는 확인하지 못함', date: '2026-11-24' },
+    { id: 'src-yoko', t: '요코바치(ヨコバチ) 정보: 구루나비·Japan Cheapo·타베로그 소개', u: 'https://gurunavi.com/en/fbxs904/rst', d: '주소 일치 확인, 전화·평균 예산·영업시간·메뉴(향토요리·중화) 게재값. 12월 영업시간은 확인하지 못함', date: '2026-11-25' },
     { id: 'src-aso', t: '아소시 관광협회', u: 'https://www.asocity-kanko.jp/', d: '대관봉·아소 관광 안내(운영 정보 확인용)', date: '2026-11-24' },
     { id: 'src-crater', t: '아소 중악 화구 규제(참고: 아소시 방재 소식지)', u: 'https://www.bousai.go.jp/kazan/kazan/renkeikaigi/pdf/20231114_aso.pdf', d: '2022년 일부 재개 정보까지만 확인. 12월 현재 규제 상태는 확인하지 못해 방문하지 않는 계획으로 구성', date: '2026-11-24' },
     { id: 'src-wx', t: 'Open-Meteo 예보 API', u: 'https://open-meteo.com/', d: '날짜별 기온·강수확률·일몰, 시간대별 기온·강수·풍속(무료 API, 화면에서 실시간 조회)' },
@@ -299,6 +300,6 @@ window.TRIP = {
     '식당 영업시간·휴무·1인 예산은 이번 조사에서 확인하지 못해 "확인 필요"로 표시했습니다.',
     '이동 거리는 조회하지 않았습니다. 화면의 이동 시간은 일정표에 배정한 시간(주차·도보·대기 포함)입니다.',
     '렌터카 예약 반납 시각(14:00)은 귀국 항공 출발(14:30)보다 늦어, 계획은 12:20까지 반납하는 조기 반납으로 잡았습니다. 영업소 확인이 필요합니다.',
-    '숙소 도착 후 가이세키 시작 시각은 미정입니다. 요코바치 2차(12/8 20:00~22:00)는 사용자가 지정해 정식 일정에 넣었지만 예약·영업 확인 전이라 확정으로 표시하지 않습니다. 1일차는 렌터카 인수를 20분으로 줄이고 Aso Skyline Observatory를 넣어 료칸 도착이 16:55입니다.'
+    '숙소 도착 후 가이세키 시작 시각은 미정입니다. 요코바치 2차(12/8 20:00~22:00)는 사용자가 지정해 정식 일정에 넣었습니다. 메뉴·영업시간·전화는 맛집 사이트 게재값이고 예약은 확인 전이라 확정으로 표시하지 않습니다. 1일차는 렌터카 인수를 20분으로 줄이고 Aso Skyline Observatory를 넣어 료칸 도착이 16:55입니다.'
   ]
 };
