@@ -315,72 +315,69 @@ function renderDay(di) {
     + '<div style="margin-top:14px">' + stayCard + '</div><div class="daynav">' + prev + next + '</div>';
 }
 
-/* ---------- 지도 ---------- */
-let map = null, mapLayer = null, mapMarkers = {}, mapDay = 0, mapOpt = false, mapLocked = true, mapFail = '';
+/* ---------- 지도 (Google 지도 임베드, API 키 불필요) ---------- */
+let mapDay = 0, mapOpt = false, mapLocked = true, mapSel = null, mapSrc = '';
 const mapSeq = di => placeStops(T.days[di]).filter(s => !P(s.place).nomap);
-function mapDayList(di) { return di === 0 ? T.days.map((_, i) => i) : [di - 1]; }
+const mapDayList = di => di === 0 ? T.days.map((_, i) => i) : [di - 1];
+const gq = id => { const p = P(id); return enc(p.addr || p.q || p.ja); };
+function embedUrl() {
+  const base = 'https://www.google.com/maps?output=embed&hl=ko';
+  if (mapSel) return base + '&z=15&q=' + gq(mapSel);
+  if (mapDay === 0) return base + '&z=9&q=' + enc('熊本県 阿蘇');
+  const r0 = dayRoute(mapDay - 1), r = r0.filter((id, i) => !(P(id).near && (r0[i - 1] === P(id).near || r0[i + 1] === P(id).near)));
+  if (r.length < 2) return base + '&z=14&q=' + gq(r[0]);
+  return base + '&saddr=' + gq(r[0]) + '&daddr=' + r.slice(1).map(gq).join('+to:') + (route === 'gen' ? '&dirflg=h' : '');
+}
 function renderMapShell() {
   const chips = '<a class="chip" data-mf="0" href="#/map">전체</a>' + T.days.map((d, i) => '<a class="chip" data-mf="' + (i + 1) + '" href="#/map/' + (i + 1) + '" style="border-left:5px solid ' + dc(i) + '">' + (i + 1) + '일차 ' + dl(i) + '</a>').join('');
   return '<h2 class="vt">여행 지도</h2><div class="chips" id="mapchips">' + chips + '</div>'
-    + '<div class="btns mapctl" style="margin-bottom:10px"><button type="button" class="btn" id="mlock">지도 조작 켜기</button><button type="button" class="btn" id="mfit">전체 맞춤</button><button type="button" class="btn" id="mopt">선택·추가 명소 표시</button></div>'
-    + '<div id="mapbox" aria-label="여행 지도"></div><div id="mapfail" class="callout bad"></div>'
-    + '<div class="legend"><span>● 숫자 핀: 방문 순서(자동차)</span><span>◌ 점선 테두리 핀: 도보로 둘러보는 곳</span><span>◆ 마름모: 선택·추가 명소·식당 후보</span><span>┅ 점선: 방문 순서 연결선(실제 도로 경로 아님)</span><span>· · · 촘촘한 점: 도보 이동</span></div>'
-    + '<p class="muted small">실제 도로 경로 데이터를 가져오지 않아 선은 방문 순서를 이은 것입니다. 정확한 경로는 각 장소의 길찾기를 사용하세요. 핀 위치는 근사값입니다. 지도는 인터넷이 필요합니다.</p>'
+    + '<div class="btns mapctl" style="margin-bottom:10px"><button type="button" class="btn" id="mlock">지도 조작 켜기</button><button type="button" class="btn" id="mfit">전체 맞춤</button><button type="button" class="btn" id="mopt">선택·추가 명소 표시</button>' + '</div>'
+    + '<div class="mapwrap"><div id="mapbox" aria-label="Google 지도"></div><div id="maplock" class="maplock"><span>지도 조작이 잠겨 있습니다. 스크롤은 그대로 됩니다.</span></div></div>'
+    + '<div id="mapinfo" class="card" style="margin-top:10px;display:none"></div>'
+    + '<div class="legend"><span>숫자: 아래 목록의 방문 순서</span><span>도보: 도보로 둘러보는 곳</span><span>선택: 선택·추가 명소와 식당 후보</span></div>'
+    + '<p class="muted small">지도는 Google 지도를 그대로 보여 주며, 날짜를 고르면 그날 방문 순서대로 이은 <b>Google의 실제 도로 경로</b>가 표시됩니다(선택한 경로: <span id="mroute"></span>). 숫자 핀은 Google 임베드에서 지원하지 않아 목록 번호로 대신합니다. 바로 옆 도보 이동 장소(겐카이·로마이·조사이엔)는 경로선에서 빼고 목록에서 위치를 확인하세요. 장소를 누르면 그 위치로 지도가 바뀝니다. 지도는 인터넷이 필요합니다.</p>'
     + '<div id="maplist"></div>';
 }
-function popupHtml(di, s, n) {
-  const p = P(s.place), prev = mapSeq(di)[n - 2];
-  return '<div style="min-width:180px"><b>' + esc(p.ko) + '</b><br><span class="jp" lang="ja">' + esc(p.ja) + '</span><br>' + (di + 1) + '일차 ' + esc(range(s)) + '<div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"><a href="' + esc(mapUrl(p)) + '" target="_blank" rel="noopener noreferrer">지도</a><a href="' + esc(dirUrl(prev ? prev.place : null, s.place)) + '" target="_blank" rel="noopener noreferrer">길찾기</a></div></div>';
+function mapInfo(di, k) {
+  const s = mapSeq(di)[k], p = P(s.place), prev = mapSeq(di)[k - 1];
+  return '<b>' + (di + 1) + '일차 ' + (k + 1) + '번 · ' + esc(p.ko) + '</b> ' + jaBtn(p.ja, p.pr, p.ko) + '<div class="small muted">' + esc(range(s)) + (p.walk ? ' · 도보 관람' : '') + '</div><div class="btns" style="margin-top:8px">' + ext(mapUrl(p), '지도 앱에서 열기') + ext(dirUrl(prev ? prev.place : null, s.place), '길찾기') + '<button type="button" class="btn" data-act="mapback">날짜 경로로 돌아가기</button></div>';
+}
+function setMapFrame() {
+  const box = $('#mapbox'); if (!box) return;
+  const url = embedUrl();
+  if (url === mapSrc && box.firstChild) return;
+  mapSrc = url;
+  if (!navigator.onLine) { box.innerHTML = '<div class="callout bad" style="margin:12px">인터넷에 연결되어 있지 않아 지도를 표시할 수 없습니다. 아래 방문 순서 목록은 그대로 볼 수 있고, 연결되면 지도가 표시됩니다.</div>'; mapSrc = ''; return; }
+  box.innerHTML = '<iframe title="Google 지도" src="' + esc(url) + '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>';
 }
 function drawMap() {
   const list = $('#maplist'); if (!list) return;
   $$('#mapchips .chip').forEach(c => c.classList.toggle('active', +c.dataset.mf === mapDay));
+  const mr = $('#mroute'); if (mr) mr.textContent = routeLabel();
   let html = '';
   mapDayList(mapDay).forEach(di => {
     const seq = mapSeq(di);
     html += '<h3 class="ct" style="margin-top:14px;color:' + dc(di) + '">' + (di + 1) + '일차 방문 순서 <span class="muted small">(' + routeLabel() + ')</span></h3><ol class="olist card" style="--pc:' + dc(di) + '">';
     seq.forEach((s, k) => { const p = P(s.place); html += '<li><span class="num" style="--pc:' + dc(di) + '">' + (k + 1) + '</span><button type="button" class="row" data-pin="' + di + '-' + k + '"><b>' + esc(p.ko) + '</b> <span class="jp small" lang="ja">' + esc(p.ja) + '</span><br><span class="small muted">' + esc(range(s)) + (p.walk ? ' · 도보 관람' : '') + '</span></button>' + ext(mapUrl(p), '지도') + '</li>'; });
     html += '</ol>';
-  });
-  list.innerHTML = html;
-  if (!map) return;
-  if (mapLayer) mapLayer.clearLayers(); else mapLayer = L.layerGroup().addTo(map);
-  mapMarkers = {}; const all = [];
-  mapDayList(mapDay).forEach(di => {
-    const col = dc(di), seq = mapSeq(di), pts = [];
-    seq.forEach((s, k) => {
-      const p = P(s.place), ll = [p.lat, p.lng]; pts.push(ll); all.push(ll);
-      const m = L.marker(ll, { icon: L.divIcon({ className: '', html: '<div class="numpin' + (p.walk ? ' walk' : '') + '" style="--pc:' + col + '">' + (k + 1) + '</div>', iconSize: [30, 30], iconAnchor: [15, 15] }) }).bindPopup(popupHtml(di, s, k + 1)).addTo(mapLayer);
-      mapMarkers[di + '-' + k] = m;
-      if (k > 0) { const a = P(seq[k - 1].place), walk = a.near === s.place || p.near === seq[k - 1].place; L.polyline([[a.lat, a.lng], ll], { color: col, weight: walk ? 4 : 3, opacity: .85, dashArray: walk ? '2 7' : '9 8' }).addTo(mapLayer); }
-    });
     if (mapOpt) {
-      const extra = [];
-      (T.days[di].extras || []).forEach(x => extra.push({ p: P(x.place), label: '선택 · ' + x.window }));
-      Object.keys(T.foods).filter(id => T.foods[id].day === di + 1).forEach(id => { const f = T.foods[id]; extra.push({ p: P(f.place), label: f.meal + ' ' + f.rank }); });
-      extra.forEach(x => { if (x.p.lat == null) return; all.push([x.p.lat, x.p.lng]); L.marker([x.p.lat, x.p.lng], { icon: L.divIcon({ className: '', html: '<div class="optpin" style="--pc:' + col + '"><span>선</span></div>', iconSize: [26, 26], iconAnchor: [13, 13] }) }).bindPopup('<b>' + esc(x.p.ko) + '</b><br><span class="jp" lang="ja">' + esc(x.p.ja) + '</span><br>' + esc(x.label) + '<br><a href="' + esc(mapUrl(x.p)) + '" target="_blank" rel="noopener noreferrer">지도</a>').addTo(mapLayer); });
+      const ex = [];
+      (T.days[di].extras || []).forEach(x => ex.push({ id: x.place, label: '선택 · ' + x.window }));
+      Object.keys(T.foods).filter(id => T.foods[id].day === di + 1).forEach(id => { const f = T.foods[id]; if (!seq.some(s => s.place === f.place)) ex.push({ id: f.place, label: f.meal + ' ' + f.rank }); });
+      if (ex.length) html += '<div class="card" style="margin-top:8px"><b>선택·추가 명소와 식당 후보</b><ul>' + ex.map(x => '<li style="display:flex;gap:8px;align-items:center;padding:6px 0"><span class="tag t-opt">선택</span><button type="button" class="row tap" style="flex:1;min-height:44px" data-pickp="' + x.id + '"><b>' + esc(P(x.id).ko) + '</b><br><span class="small muted">' + esc(x.label) + '</span></button>' + ext(mapUrl(P(x.id)), '지도') + '</li>').join('') + '</ul></div>';
     }
   });
-  map.__all = all; fitMap();
+  list.innerHTML = html;
+  const inf = $('#mapinfo');
+  if (!mapSel) { inf.style.display = 'none'; }
+  setMapFrame();
 }
-function fitMap() { if (map && map.__all && map.__all.length) map.fitBounds(map.__all, { padding: [30, 30], maxZoom: 13 }); }
-function initMap() {
-  const box = $('#mapbox'); if (!box) return;
-  if (!window.L) { box.style.display = 'none'; const f = $('#mapfail'); f.style.display = 'block'; f.textContent = '지도 라이브러리를 불러오지 못했습니다(인터넷 필요). 아래 방문 순서 목록과 각 장소의 지도·길찾기 링크는 그대로 사용할 수 있습니다.'; return; }
-  if (map) { setTimeout(() => map.invalidateSize(), 50); return; }
-  try {
-    map = L.map(box, { zoomControl: true, dragging: false, touchZoom: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, tap: false }).setView([32.9, 131.0], 10);
-    let errs = 0;
-    const tl = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '© OpenStreetMap' }).addTo(map);
-    tl.on('tileerror', () => { if (++errs === 4) { const f = $('#mapfail'); f.style.display = 'block'; f.textContent = '지도 타일을 불러오지 못했습니다. 핀과 순서 목록, 외부 길찾기는 계속 사용할 수 있습니다.'; } });
-    mapLocked = true; setLock(true);
-  } catch (e) { map = null; $('#mapfail').style.display = 'block'; $('#mapfail').textContent = '지도를 표시하지 못했습니다. 목록과 외부 길찾기를 이용하세요.'; }
-  drawMap(); setTimeout(() => map && map.invalidateSize(), 80);
+function showPin(di, k) {
+  const s = mapSeq(di)[k]; mapSel = s.place;
+  const inf = $('#mapinfo'); inf.innerHTML = mapInfo(di, k); inf.style.display = 'block';
+  setMapFrame(); $('#mapbox').scrollIntoView({ block: 'center', behavior: 'smooth' });
 }
-function setLock(lock) {
-  mapLocked = lock; const b = $('#mlock'); if (b) { b.textContent = lock ? '지도 조작 켜기' : '지도 조작 끄기'; b.classList.toggle('on', !lock); }
-  if (!map) return; ['dragging', 'touchZoom', 'scrollWheelZoom', 'doubleClickZoom', 'boxZoom'].forEach(h => map[h][lock ? 'disable' : 'enable']());
-}
+function setLock(lock) { mapLocked = lock; const b = $('#mlock'); if (b) { b.textContent = lock ? '지도 조작 켜기' : '지도 조작 끄기'; b.classList.toggle('on', !lock); } const l = $('#maplock'); if (l) l.style.display = lock ? '' : 'none'; }
 
 /* ---------- 식당 / 현지어 / 숙소 / 교통 / 준비 ---------- */
 function renderFood() {
@@ -507,7 +504,7 @@ function route_() {
   const navKey = ['', 'day', 'prep'].includes(r.v) ? '' : r.v;
   $$('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.nav === navKey));
   const ac = $('#topbar .chip.active'); if (ac && ac.scrollIntoView) { try { ac.scrollIntoView({ block: 'nearest', inline: 'center' }); } catch (e) {} }
-  if (r.v === 'map') { mapDay = r.n; initMap(); drawMap(); if (map) setTimeout(() => { map.invalidateSize(); fitMap(); }, 60); }
+  if (r.v === 'map') { if (mapDay !== r.n) mapSel = null; mapDay = r.n; setLock(mapLocked); drawMap(); }
   if (r.v === 'food') drawFood(r.n);
   if (r.v === 'talk') drawTalk();
   document.title = (r.v === 'day' ? r.n + '일차 · ' : '') + C.brand;
@@ -524,7 +521,7 @@ function buildViews() {
   $('#views').innerHTML = h;
   calcBudget();
 }
-function rebuildKeep() { const y = window.scrollY, mapWas = !!map; if (map) { try { map.remove(); } catch (e) {} map = null; mapLayer = null; } buildViews(); route_(); window.scrollTo(0, y); }
+function rebuildKeep() { const y = window.scrollY; mapSrc = ''; buildViews(); route_(); window.scrollTo(0, y); }
 
 /* ---------- 이벤트 ---------- */
 document.addEventListener('click', e => {
@@ -538,16 +535,18 @@ document.addEventListener('click', e => {
   if (t.dataset.big != null) { const p = T.phrases[+t.dataset.big]; openBig({ ja: p.ja, pr: p.pr, ko: p.ko }); return; }
   if (t.dataset.bigCur != null) { if (cur) openBig(cur); return; }
   if (t.dataset.tc) { talkCat = t.dataset.tc; stopSpeech(); drawTalk(); return; }
-  if (t.dataset.pin) { const m = mapMarkers[t.dataset.pin]; if (m && map) { $('#mapbox').scrollIntoView({ block: 'center', behavior: 'smooth' }); map.setView(m.getLatLng(), Math.max(map.getZoom(), 12)); m.openPopup(); } else toast('지도를 불러오지 못했습니다. 오른쪽 지도 버튼을 이용하세요.'); return; }
+  if (t.dataset.pin) { const [d, k] = t.dataset.pin.split('-').map(Number); showPin(d, k); return; }
+  if (t.dataset.pickp) { mapSel = t.dataset.pickp; const p = P(mapSel); const inf = $('#mapinfo'); inf.innerHTML = '<b>' + esc(p.ko) + '</b> ' + jaBtn(p.ja, p.pr, p.ko) + '<div class="btns" style="margin-top:8px">' + ext(mapUrl(p), '지도 앱에서 열기') + '<button type="button" class="btn" data-act="mapback">날짜 경로로 돌아가기</button></div>'; inf.style.display = 'block'; setMapFrame(); $('#mapbox').scrollIntoView({ block: 'center', behavior: 'smooth' }); return; }
   switch (t.dataset.act) {
     case 'large': large = !large; store.set('large', large); applyLarge(); return;
     case 'closesheet': closeSheet(); return;
     case 'closebig': closeBig(); return;
     case 'wx': localStorage.removeItem && 0; store.set('wx', null); loadWeather(); return;
     case 'print': doPrint(); return;
+    case 'mapback': mapSel = null; drawMap(); return;
   }
   if (t.id === 'mlock') { setLock(!mapLocked); return; }
-  if (t.id === 'mfit') { fitMap(); return; }
+  if (t.id === 'mfit') { mapSel = null; mapSrc = ''; drawMap(); return; }
   if (t.id === 'mopt') { mapOpt = !mapOpt; t.classList.toggle('on', mapOpt); drawMap(); return; }
 });
 document.addEventListener('change', e => {

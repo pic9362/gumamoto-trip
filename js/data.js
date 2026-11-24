@@ -290,7 +290,7 @@ window.TRIP = {
     { id: 'src-aso', t: '아소시 관광협회', u: 'https://www.asocity-kanko.jp/', d: '대관봉·아소 관광 안내(운영 정보 확인용)', date: '2026-11-24' },
     { id: 'src-crater', t: '아소 중악 화구 규제(참고: 아소시 방재 소식지)', u: 'https://www.bousai.go.jp/kazan/kazan/renkeikaigi/pdf/20231114_aso.pdf', d: '2022년 일부 재개 정보까지만 확인. 12월 현재 규제 상태는 확인하지 못해 방문하지 않는 계획으로 구성', date: '2026-11-24' },
     { id: 'src-wx', t: 'Open-Meteo 예보 API', u: 'https://open-meteo.com/', d: '날짜별 기온·강수확률·일몰, 시간대별 기온·강수·풍속(무료 API, 화면에서 실시간 조회)' },
-    { id: 'src-osm', t: 'OpenStreetMap · Leaflet', u: 'https://leafletjs.com/', d: '지도 타일·라이브러리(인터넷 필요)' }
+    { id: 'src-gmap', t: 'Google 지도 임베드', u: 'https://www.google.com/maps', d: '여행 지도 화면의 지도·도로 경로(키 없이 쓰는 임베드, 인터넷 필요)' }
   ],
 
   assumptions: [
