@@ -79,7 +79,7 @@ function legs(di) {
   }
   return out;
 }
-const driveMin = di => legs(di).filter(l => !l.flight).reduce((s, l) => s + (l.b.place && l.a.place && P(l.a.place).near === l.b.place || l.b.place && l.a.place && P(l.b.place).near === l.a.place ? 0 : l.gap), 0);
+const driveMin = di => legs(di).filter(l => !l.flight && !(l.a.meal && l.b.place && P(l.b.place).near)).reduce((s, l) => s + (l.b.place && l.a.place && P(l.a.place).near === l.b.place || l.b.place && l.a.place && P(l.b.place).near === l.a.place ? 0 : l.gap), 0);
 function mealOptions(di, s) {
   const key = { lunch2: '점심', dinner2: '저녁' }[s.meal];
   return key ? Object.keys(T.foods).filter(id => T.foods[id].day === di + 1 && T.foods[id].meal === key) : [];
@@ -210,10 +210,10 @@ function budgetHtml() {
     + '<p class="small"><label>그 밖의 현지 비용(식비·유류·톨·주차 등, 직접 입력) <input class="numin" style="width:9em" type="number" step="10000" min="0" id="extra" value="' + extra + '"> 원</label></p>'
     + '<p><b>예상 총액(4인 전체): <span data-k="t"></span></b></p><p class="muted small">식당 1인 예산·유류·톨·주차는 조사하지 못해 합계에 넣지 않았습니다. 환율은 가정값입니다.</p></div>';
 }
-function calcBudget() {
+function calcBudget(save) {
   const b = $('#budget'); if (!b) return;
   const rate = +$('#rate').value || C.jpyKrwDefault, ex = +$('#extra').value || 0;
-  store.set('rate', rate); store.set('extra', ex);
+  if (save) { store.set('rate', rate); store.set('extra', ex); }
   const f = n => Math.round(n).toLocaleString('ko-KR') + '원';
   const r = 22550 * rate, y = 117800 * rate, e = 3200 * rate, s = 887261 + 249514 + r + y + e;
   const set = (k, v) => { const x = $('[data-k=' + k + ']', b); if (x) x.textContent = v; };
@@ -243,7 +243,7 @@ function renderHome() {
 /* ---------- 날짜별 일정 ---------- */
 function foodCard(id, compact) {
   const f = T.foods[id], p = P(f.place), first = f.rank === '1순위';
-  return '<div class="' + (compact ? 'mo' + (first ? ' first' : '') : 'card fcard') + '"><div><span class="tag ' + (f.meal === '2차(선택)' ? 't-opt' : 't-plan') + '">' + f.meal + '</span><span class="tag ' + (first ? 't-must' : 't-ext') + '">' + esc(f.rank) + '</span><span class="tag s-chk">영업·예산 확인 필요</span></div>'
+  return '<div class="' + (compact ? 'mo' + (first ? ' first' : '') : 'card fcard') + '"><div><span class="tag ' + (f.meal === '2차' ? 't-ext' : 't-plan') + '">' + f.meal + '</span><span class="tag ' + (first ? 't-must' : 't-ext') + '">' + esc(f.rank) + '</span><span class="tag s-chk">영업·예산 확인 필요</span></div>'
     + '<div class="nm"><b>' + esc(p.ko) + '</b>' + jaBtn(p.ja, p.pr, p.ko) + '<span class="pr">' + esc(p.pr) + '</span></div>'
     + '<p class="why"><b>' + esc(f.menu) + '</b> — ' + esc(f.why) + '</p>'
     + '<dl class="kv"><dt>지역</dt><dd>' + esc(p.area) + '</dd><dt>1인 예산</dt><dd>' + esc(f.price || '확인 필요(미조사)') + '</dd><dt>영업시간</dt><dd>' + esc(f.hours || '확인 필요(구글 지도·공식 안내로 확인)') + '</dd><dt>휴무</dt><dd>' + esc(f.closed || '확인 필요') + '</dd><dt>접근</dt><dd>' + esc(f.access) + '</dd>' + (f.wait ? '<dt>대기</dt><dd>' + esc(f.wait) + '</dd>' : '') + (f.phone ? '<dt>전화</dt><dd><a href="tel:+81' + f.phone.replace(/^0/, '').replace(/-/g, '') + '">' + esc(f.phone) + '</a> <span class="muted small">(' + esc(f.phoneSrc) + ')</span></dd>' : '') + '</dl>'
@@ -269,7 +269,7 @@ function stopHtml(di, s, prevPlaceStop) {
     + '<h4>' + esc(s.title) + '</h4>'
     + '<div class="nm"><b>' + esc(p.ko) + '</b>' + (p.nomap && !p.ja ? '' : jaBtn(p.ja, p.pr, p.ko)) + '<span class="pr">' + esc(p.pr) + '</span></div>'
     + '<p class="why">' + esc(s.why) + '</p>'
-    + '<dl class="kv"><dt>할 일</dt><dd>' + esc(s.todo || '') + '</dd><dt>체류</dt><dd>' + esc(s.stay || '') + '</dd><dt>예산</dt><dd>' + esc(s.cost || '') + '</dd>' + (s.access ? '<dt>접근</dt><dd>' + esc(s.access) + '</dd>' : '') + (p.note ? '<dt>참고</dt><dd>' + esc(p.note) + '</dd>' : '') + '</dl>'
+    + '<dl class="kv"><dt>할 일</dt><dd>' + esc(s.todo || '') + '</dd><dt>체류</dt><dd>' + esc(s.stay || '') + '</dd><dt>예산</dt><dd>' + esc(s.cost || '') + '</dd>' + (s.access ? '<dt>접근</dt><dd>' + esc(s.access) + '</dd>' : '') + (p.addr ? '<dt>주소</dt><dd>' + esc(p.addr) + '</dd>' : '') + (p.note ? '<dt>참고</dt><dd>' + esc(p.note) + '</dd>' : '') + '</dl>'
     + (s.backup ? '<p class="small" style="margin-top:6px">🔁 ' + esc(s.backup) + '</p>' : '')
     + (p.approx ? '<p class="muted small">지도 핀은 근사 위치입니다. 길찾기는 장소 ID 기준입니다.</p>' : '')
     + '<span data-wxk="stop" data-wxd="' + di + '" data-wxp="' + s.place + '" data-wxt="' + esc((s.t && s.t[0]) || '') + '"></span>'
@@ -418,10 +418,10 @@ function renderStay() {
   ];
   const kind = ['', '', ''];
   const meal = '<div class="card"><h3 class="ct">날짜별 식사 계획</h3><div class="tscroll"><table class="t mealgrid"><tr><th>날짜</th><th>아침</th><th>점심</th><th>저녁</th></tr>'
-    + '<tr><td class="k">1일차 ' + dl(0) + '</td><td><span class="tag s-chk">개인</span>출발 전 개별 해결</td><td><span class="tag s-chk">미정</span>입국 후 간이 요기</td><td><span class="tag t-incl">숙소 포함</span>가이세키 석식</td></tr>'
-    + '<tr><td class="k">2일차 ' + dl(1) + '</td><td><span class="tag t-incl">숙소 포함</span>일본 가정식 조식</td><td><span class="tag t-plan">외부 후보</span>이마킨 식당 / 요카요카테이</td><td><span class="tag t-plan">외부 후보</span>카츠레츠테이 / 무쓰고로<br><span class="tag t-opt">선택</span>2차 겐카이</td></tr>'
+    + '<tr><td class="k">1일차 ' + dl(0) + '</td><td><span class="tag s-chk">개인</span>출발 전 개별 해결</td><td><span class="tag t-plan">외부</span>김해국제공항에서 해결(탑승 전)</td><td><span class="tag t-incl">숙소 포함</span>가이세키 석식</td></tr>'
+    + '<tr><td class="k">2일차 ' + dl(1) + '</td><td><span class="tag t-incl">숙소 포함</span>일본 가정식 조식</td><td><span class="tag t-plan">외부 후보</span>이마킨 식당 / 요카요카테이</td><td><span class="tag t-plan">외부 후보</span>카츠레츠테이 / 무쓰고로<br><span class="tag t-plan">2차</span>겐카이 20:00~22:00(예약 예정)</td></tr>'
     + '<tr><td class="k">3일차 ' + dl(2) + '</td><td><span class="tag t-plan">외부 후보</span>킷사토 사케 로마이(호텔 조식 불포함)</td><td><span class="tag s-chk">미정</span>공항 식당가</td><td>귀국 후</td></tr></table></div><p class="muted small">숙소 포함 식사는 외부 식당 일정과 겹치지 않게 뺐습니다.</p></div>';
-  const rent = '<div class="card"><span class="tag t-incl">예약 확정</span><h3 class="ct" style="display:inline">렌터카 프리우스</h3><p class="small">12/7 14:00 인수 ~ 12/9 14:00 반납 · 토요타렌터리스 구마모토공항점 · ETC·내비 포함 · 22,550엔. 영업소 주소·전화는 확인 필요(예약서). 반납 영업소는 공항 건물과 구별해 확인하세요. 계획 반납은 12/9 11:45~12:20입니다.</p><div class="btns">' + ext(mapUrl(P('rental')), '영업소 검색') + ext(P('rental').official.url, '토요타렌터리스 공식') + copyBtn(P('rental').ja) + '</div></div>';
+  const rent = '<div class="card"><span class="tag t-incl">예약 확정</span><h3 class="ct" style="display:inline">렌터카 프리우스</h3><p class="small">12/7 14:00 인수 ~ 12/9 14:00 반납 · 토요타렌터리스 구마모토공항점 · ETC·내비 포함 · 22,550엔. 영업소 주소: ' + esc(P('rental').addr) + '(사용자 제공, 공항 건물과 별도). 전화는 예약서로 확인하세요. 반납 전 주유소: ' + esc(P('gas').addr) + '. 계획 반납은 12/9 12:00~12:20입니다.</p><div class="btns">' + ext(mapUrl(P('rental')), '영업소 검색') + ext(P('rental').official.url, '토요타렌터리스 공식') + copyBtn(P('rental').ja) + '</div></div>';
   return '<h2 class="vt">숙소·식사</h2><div class="grid2">' + cards + '</div><div style="margin-top:14px">' + meal + '</div><div style="margin-top:14px">' + rent + '</div>';
 }
 function renderMove() {
@@ -431,7 +431,7 @@ function renderMove() {
     + '<div class="card"><h3 class="ct">가는 길과 오는 길</h3><ul class="stack">' + t.gettingThere.map(g => '<li><b>' + esc(g.h) + '</b> ' + sTag(g.s) + '<br><span class="small">' + esc(g.b) + '</span></li>').join('') + '</ul></div>'
     + '<div class="card"><h3 class="ct">렌터카 운전·주차·주유·반납 요령</h3><ul class="stack small">' + t.driving.map(x => '<li>• ' + esc(x) + '</li>').join('') + '</ul></div>'
     + '<div class="card"><h3 class="ct">긴급 연락처</h3><div class="tscroll"><table class="t">' + emg + '</table></div><p class="small" style="margin-top:8px"><b>확인된 정보만 넣었습니다.</b> 아래는 확인하지 못했습니다.</p><ul class="small">' + t.unknown.map(x => '<li>• ' + esc(x) + '</li>').join('') + '</ul></div>'
-    + '<div class="card"><h3 class="ct">귀국일(' + dl(NDAYS - 1) + ') 마지막 이동 역산</h3><ul class="stack small">' + t.returnPlan.map(r => '<li><b>' + esc(r.t) + '</b> ' + esc(r.a) + '</li>').join('') + '</ul><div class="callout" style="margin-top:8px">렌터카 예약 반납(14:00)이 항공 출발(14:30)보다 늦습니다. 계획은 11:45 조기 반납이므로 영업소에 사전 확인하세요.</div></div>'
+    + '<div class="card"><h3 class="ct">귀국일(' + dl(NDAYS - 1) + ') 마지막 이동 역산</h3><ul class="stack small">' + t.returnPlan.map(r => '<li><b>' + esc(r.t) + '</b> ' + esc(r.a) + '</li>').join('') + '</ul><div class="callout" style="margin-top:8px">렌터카 예약 반납(14:00)이 항공 출발(14:30)보다 늦습니다. 계획은 12:20까지 조기 반납이므로 영업소에 사전 확인하세요.</div></div>'
     + '<div class="card"><a class="btn" href="#/prep">출발 준비·조사 출처로 이동</a></div>';
 }
 function renderPrep() {
@@ -442,7 +442,7 @@ function renderPrep() {
   return '<h2 class="vt">출발 준비</h2><div class="card"><h3 class="ct">체크리스트 <span id="chkcount" class="tag t-must">' + done + '/' + total + '</span></h3>' + groups + '</div>'
     + '<div class="card"><h3 class="ct">귀국일 마지막 이동 역산</h3><ul class="small stack">' + T.transit.returnPlan.map(r => '<li><b>' + esc(r.t) + '</b> ' + esc(r.a) + '</li>').join('') + '</ul></div>'
     + '<div class="card no-print"><h3 class="ct">인쇄·저장</h3><button type="button" class="btn pri" data-act="print">전체 일정 인쇄 / PDF 저장</button><p class="muted small">모든 날짜와 접힌 내용이 펼쳐져 인쇄됩니다.</p></div>'
-    + '<div class="card"><h3 class="ct">조사 출처 모음</h3><p class="muted small">조회일 ' + C.researchedOn + '. 검색으로 확인하지 못한 항목은 화면에 “확인 필요”로 표시했습니다. 식당 영업시간·렌터카 영업소 주소·숙소 전화·구마모토성 12월 개장시간·화구 규제 상태는 확인하지 못했습니다.</p><ul>' + src + '</ul></div>';
+    + '<div class="card"><h3 class="ct">조사 출처 모음</h3><p class="muted small">조회일 ' + C.researchedOn + '. 검색으로 확인하지 못한 항목은 화면에 “확인 필요”로 표시했습니다. 식당 영업시간·렌터카 영업소 전화·숙소 전화·구마모토성 12월 개장시간·화구 규제 상태는 확인하지 못했습니다.</p><ul>' + src + '</ul></div>';
 }
 
 /* ---------- 시트·모달·복사·음성 ---------- */
@@ -553,9 +553,9 @@ document.addEventListener('click', e => {
 document.addEventListener('change', e => {
   const t = e.target;
   if (t.dataset && t.dataset.chk) { const c = store.get('chk', {}); if (t.checked) c[t.dataset.chk] = 1; else delete c[t.dataset.chk]; store.set('chk', c); const total = $$('[data-chk]').length; $('#chkcount').textContent = Object.keys(c).length + '/' + total; }
-  if (t.id === 'rate' || t.id === 'extra') calcBudget();
+  if (t.id === 'rate' || t.id === 'extra') calcBudget(true);
 });
-document.addEventListener('input', e => { if (e.target.id === 'rate' || e.target.id === 'extra') calcBudget(); });
+document.addEventListener('input', e => { if (e.target.id === 'rate' || e.target.id === 'extra') calcBudget(true); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeSheet(); closeBig(); } });
 document.addEventListener('visibilitychange', () => { if (document.hidden) stopSpeech(); else { paintNN(); } });
 window.addEventListener('pagehide', stopSpeech);
